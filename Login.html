@@ -43,24 +43,38 @@
     </form>
 
     <script>
-        function validarFormulario() {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+        document.getElementById('loginForm').addEventListener('submit', function (event) {
+  event.preventDefault(); 
 
-            if (email.trim() === '') {
-                alert('Por favor, introduce un correo válido.');
-                return;
-            }
+  var email = document.getElementById('email').value;
+  var password = document.getElementById('password').value;
 
-            if ( password.length < 8) {
-                alert('La contraseña debe tener minimo 8 caracteres.');
-                return;
-            }
+  var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-            // Si la validación pasa, puedes realizar otras acciones aquí
-            console.log('Correo y contraseña válidos');
-            window.location.href = "index.html";
-        }
+  var passwordRegex = /^(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/\-])(?=.*[A-Z])(?=.*\d.*\d).{8,}$/;
+
+  var isValidEmail = emailRegex.test(email);
+  var isValidPassword = passwordRegex.test(password);
+
+  if (isValidEmail && isValidPassword) {
+    alert('Login exitoso');
+    console.log("Email: " + email, "Password: " + password);
+    window.location.href = 'index.html';
+  } else {
+    var errorMessage = '';
+
+    if (!isValidEmail) {
+      errorMessage += 'El formato del correo electrónico no es válido. ';
+    }
+
+    if (!isValidPassword) {
+      errorMessage += 'La contraseña no cumple con los requisitos mínimos.';
+    }
+
+    alert('Credenciales incorrectas. Inténtelo de nuevo.\n' + errorMessage);
+  }
+});
+        
     </script>
 
 </body>
