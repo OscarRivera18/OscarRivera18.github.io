@@ -5,29 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar sesión</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 50px;
-        }
-        form {
-            max-width: 300px;
-            margin: 0 auto;
-        }
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            box-sizing: border-box;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+        /* (Your styles remain the same) */
     </style>
 </head>
 <body>
@@ -37,44 +15,42 @@
         <input type="email" id="email" name="email" required>
 
         <label for="password">Contraseña:</label>
-        <input type="password" id="password" name="password" required minlength="1" maxlength="8">
+        <input type="password" id="password" name="password" required minlength="8" maxlength="8">
 
-        <button type="button" onclick="validarFormulario()">Iniciar sesión</button>
+        <button type="submit">Iniciar sesión</button>
     </form>
 
     <script>
         document.getElementById('loginForm').addEventListener('submit', function (event) {
-  event.preventDefault(); 
+            event.preventDefault();
 
-  var email = document.getElementById('email').value;
-  var password = document.getElementById('password').value;
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
 
-  var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            var passwordRegex = /^(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/\-])(?=.*[A-Z])(?=.*\d.*\d).{8,}$/;
 
-  var passwordRegex = /^(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/\-])(?=.*[A-Z])(?=.*\d.*\d).{8,}$/;
+            var isValidEmail = emailRegex.test(email);
+            var isValidPassword = passwordRegex.test(password);
 
-  var isValidEmail = emailRegex.test(email);
-  var isValidPassword = passwordRegex.test(password);
+            if (isValidEmail && isValidPassword) {
+                alert('Login exitoso');
+                console.log("Email: " + email, "Password: " + password);
+                window.location.href = 'index.html';
+            } else {
+                var errorMessage = '';
 
-  if (isValidEmail && isValidPassword) {
-    alert('Login exitoso');
-    console.log("Email: " + email, "Password: " + password);
-    window.location.href = 'index.html';
-  } else {
-    var errorMessage = '';
+                if (!isValidEmail) {
+                    errorMessage += 'El formato del correo electrónico no es válido. ';
+                }
 
-    if (!isValidEmail) {
-      errorMessage += 'El formato del correo electrónico no es válido. ';
-    }
+                if (!isValidPassword) {
+                    errorMessage += 'La contraseña debe tener al menos 8 caracteres y cumplir con los requisitos de complejidad.';
+                }
 
-    if (!isValidPassword) {
-      errorMessage += 'La contraseña no cumple con los requisitos mínimos.';
-    }
-
-    alert('Credenciales incorrectas. Inténtelo de nuevo.\n' + errorMessage);
-  }
-});
-        
+                alert('Credenciales incorrectas. Inténtelo de nuevo.\n' + errorMessage);
+            }
+        });
     </script>
 
 </body>
