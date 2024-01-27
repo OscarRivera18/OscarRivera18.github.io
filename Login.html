@@ -52,8 +52,8 @@
                 return;
             }
 
-            if (password.length === 0 || password.length > 8) {
-                alert('La contraseña debe tener entre 1 y 8 caracteres.');
+            if ( password.length < 8) {
+                alert('La contraseña debe tener minimo 8 caracteres.');
                 return;
             }
 
